@@ -1,0 +1,27 @@
+### GET request to example server
+GET http://localhost:3000
+
+###
+
+### GET request to example server
+GET http://localhost:3000/hello
+
+###
+
+### GET request to example server
+GET http://localhost:3000/greet?name=Tom
+
+###
+
+### POST
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+  "name": "Gucio",
+  "age": 21,
+  "city": "Olsztyn",
+  "email": "gucio@gucio.pl"
+}
+
+###
