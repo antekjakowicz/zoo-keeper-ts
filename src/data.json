@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "name": "Lion",
+    "species": "Panthera leo",
+    "age": 8,
+    "isEndangered": false,
+    "habitat": "Savanna"
+  }
+]

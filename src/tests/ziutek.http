@@ -1,27 +1,53 @@
-### GET request to example server
-GET http://localhost:3000
+### Pobierz wszystkie zwierzeta
+GET http://localhost:3000/animals
+Content-Type: application/json
 
-###
+### Pobierz zwierze po id
+GET http://localhost:3000/animals/1
+Content-Type: application/json
 
-### GET request to example server
-GET http://localhost:3000/hello
 
-###
+### Pobierz zagrozone zwierzeta
+GET http://localhost:3000/animals/endangered
+Content-Type: application/json
 
-### GET request to example server
-GET http://localhost:3000/greet?name=Tom
 
-###
+### Pobierz zwierzeta z danego srodowiska
+GET http://localhost:3000/animals/habitat/Ocean
+Content-Type: application/json
 
-### POST
-POST http://localhost:3000/user
+
+### Pobierz zwierzeta danego gatunku
+GET http://localhost:3000/animals/species?species=Bear
+Content-Type: application/json
+
+
+### Dodaj nowe zwierze
+POST http://localhost:3000/animals
 Content-Type: application/json
 
 {
-  "name": "Gucio",
-  "age": 21,
-  "city": "Olsztyn",
-  "email": "gucio@gucio.pl"
+  "name": "Waz",
+  "species": "Snake",
+  "age": "2",
+  "isEndangered": false,
+  "habitat": "Jungle"
 }
 
-###
+
+### Uaktualnij zwierze
+PUT http://localhost:3000/animals/2
+Content-Type: application/json
+
+{
+  "name": "Dory",
+  "species": "Fish",
+  "age": 3,
+  "isEndangered": true,
+  "habitat": "Ocean"
+}
+
+
+### Usun zwierze
+DELETE http://localhost:3000/animals/6
+Content-Type: application/json

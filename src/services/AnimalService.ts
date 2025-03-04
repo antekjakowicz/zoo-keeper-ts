@@ -1,30 +1,30 @@
 import fs from 'fs/promises';
 import path from 'path';
-import {Animal} from "../models/Animal";
+import Animal from "../models/Animal";
 
 const filePath = path.resolve('data', 'data.json');
 
 const AnimalService = {
-    async getAnimals() {
+    async getAnimals(): Promise<Animal[]> {
         const data = await fs.readFile(filePath, 'utf-8')
         return JSON.parse(data);
     },
 
-    async getAnimalsById(id: number) {
+    async getAnimalById(id: number): Promise<Animal> {
         const animals = await this.getAnimals();
-        const animal: String = animals.find((animal: { id: Number; }) => animal.id === id);
+        const animal = animals.find((animal) => animal.id === id);
         if (!animal) throw new Error('Animal not found');
         return animal;
     },
 
     async getEndangeredAnimals() {
         const animals = await this.getAnimals()
-        return animals.filter((animal: { isEndangered: any; }) => animal.isEndangered);
+        return animals.filter((animal: { isEndangered: boolean; }) => animal.isEndangered);
     },
 
     async getAnimalsByHabitat (habitat: string) {
         const animals = await this.getAnimals()
-        return animals.filter((animal: { habitat: string; }) => animal.habitat.toLowerCase() === habitat.toLowerCase())
+        return animals.filter((animal: { habitat: string; })  => animal.habitat.toLowerCase() === habitat.toLowerCase())
     },
 
     async getAnimalsBySpecies (species: string) {
@@ -32,7 +32,9 @@ const AnimalService = {
         return animals.filter((animal: { species: string; }) => animal.species.toLowerCase() === species.toLowerCase())
     },
 
-    async addAnimal(newAnimal: Animal) {
+
+    //!!!
+    async addAnimal(newAnimal: Omit<Animal, 'id'>) {
         const animals = await this.getAnimals();
         const newId = animals.length + 1;
         const animal = { id: newId, ...newAnimal };
@@ -40,6 +42,7 @@ const AnimalService = {
         await fs.writeFile(filePath, JSON.stringify(animals, null, 2));
         return animal;
     },
+
 
     async updateAniaml(id: number, updatedAnimal: Animal) {
         const animals = await this.getAnimals()

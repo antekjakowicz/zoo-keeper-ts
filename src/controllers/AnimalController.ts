@@ -1,10 +1,11 @@
-import AnimalService from '../services/AnimalService';
-import Animal from '../models/Animal';
+import AnimalService from '../services/AnimalService.js';
+import Animal from "../models/Animal";
+import { Request, Response } from "express";
 
-class AnimalsController {
-     getAllAnimals(req: Request, res: Response) {
+const AnimalsController = {
+    async getAllAnimals(req: Request, res: Response) {
         try {
-            const animals = this.getAnimals();
+            const animals: Animal[] = await AnimalService.getAnimals();
             res.json(animals);
         } catch (error) {
             if (error instanceof Error) {
@@ -13,66 +14,80 @@ class AnimalsController {
         }
     },
 
-    async getAnimalById(req, res) {
+    async getAnimalById(req: Request, res: Response) {
         try {
-            const animal = await AnimalService.getAnimalById(req.params.id);
+            const animal = await AnimalService.getAnimalById(Number(req.params.id));
             res.json(animal);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            if (error instanceof Error) {
+                res.status(404).json({ message: error.message });
+            }
         }
     },
 
-    async getEndangeredAnimals(req, res) {
+    async getEndangeredAnimals(req: Request, res: Response) {
         try {
             const animals = await AnimalService.getEndangeredAnimals();
             res.json(animals);
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
         }
     },
 
-    async getAnimalsByHabitat(req, res) {
+    async getAnimalsByHabitat(req: Request, res: Response) {
         try {
             const animals = await AnimalService.getAnimalsByHabitat(req.params.habitat);
             res.json(animals);
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
         }
     },
 
-    async getAnimalsBySpecies(req, res) {
+    async getAnimalsBySpecies(req: Request, res: Response) {
         try {
             const animals = await AnimalService.getAnimalsBySpecies(req.params.species);
             res.json(animals);
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            }
         }
     },
 
-    async addAnimal(req, res) {
+    async addAnimal(req: Request, res: Response) {
         try {
             const newAnimal = await AnimalService.addAnimal(req.body);
             res.status(201).json(newAnimal);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            if (error instanceof Error) {
+                res.status(404).json({ message: error.message });
+            }
         }
     },
 
-    async updateAnimal(req, res) {
+    async updateAnimal(req: Request, res: Response) {
         try {
-            const updatedAnimal = await AnimalService.updateAniaml(req.params.id, req.body);
+            const updatedAnimal = await AnimalService.updateAniaml(Number(req.params.id), req.body);
             res.json(updatedAnimal);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            if (error instanceof Error) {
+                res.status(404).json({ message: error.message });
+            }
         }
     },
 
-    async deleteAnimal(req, res) {
+    async deleteAnimal(req: Request, res: Response) {
         try {
-            const deletedAnimal = await AnimalService.deleteAnimal(req.params.id);
+            const deletedAnimal = await AnimalService.deleteAnimal(Number(req.params.id));
             res.json(deletedAnimal);
         } catch (error) {
-            res.status(404).json({ message: error.message });
+            if (error instanceof Error) {
+                res.status(404).json({ message: error.message });
+            }
         }
     }
 };
