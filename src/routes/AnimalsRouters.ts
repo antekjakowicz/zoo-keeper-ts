@@ -1,5 +1,6 @@
 import express from 'express';
 import AnimalsController from '../controllers/AnimalController';
+import app from "../app";
 
 const router = express.Router();
 
@@ -11,5 +12,7 @@ router.get("/species", AnimalsController.getAnimalsBySpecies);
 router.post("/", AnimalsController.addAnimal);
 router.put("/:id", AnimalsController.updateAnimal);
 router.delete("/:id", AnimalsController.deleteAnimal);
+
+app.use("/animals", router)
 
 export default router;

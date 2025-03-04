@@ -44,7 +44,7 @@ const AnimalService = {
     },
 
 
-    async updateAniaml(id: number, updatedAnimal: Animal) {
+    async updateAnimal(id: number, updatedAnimal: Animal) {
         const animals = await this.getAnimals()
         const index = animals.findIndex((animal: { id: number; }) => animal.id === id);
         if (index === -1) throw new Error('Animal not found');

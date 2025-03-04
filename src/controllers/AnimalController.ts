@@ -71,7 +71,7 @@ const AnimalsController = {
 
     async updateAnimal(req: Request, res: Response) {
         try {
-            const updatedAnimal = await AnimalService.updateAniaml(Number(req.params.id), req.body);
+            const updatedAnimal = await AnimalService.updateAnimal(Number(req.params.id), req.body);
             res.json(updatedAnimal);
         } catch (error) {
             if (error instanceof Error) {
